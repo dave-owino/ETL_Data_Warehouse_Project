@@ -351,38 +351,3 @@ scripts_to_run = [
 ]
 
 build_warehouse("My_Data_Warehouse.db", scripts_to_run)
-
-
-'''
-def build_warehouse(db_name, script_list):
-    # Connect to the database (creates it if it doesn't exist)
-    conn = sqlite3.connect(db_name)
-    cursor = conn.cursor()
-    
-    print(f"Connecting to Warehouse: {db_name}")
-    
-    processed_dir = "C:/Users/Davie/Documents/GitHub/ETL_Data_Warehouse_Project/data/processed/"
-    
-    for script_file in script_list:
-        path = os.path.join(processed_dir, script_file)
-        if os.path.exists(path):
-            with open(path, 'r', encoding='utf-8') as f:
-                sql_script = f.read()
-                # executescript handles multiple commands in one go
-                cursor.executescript(sql_script)
-                print(f"Successfully executed: {script_file}")
-    
-    conn.commit()
-    conn.close()
-    print("Data Warehouse Population Complete.")
-
-# Run the automation
-scripts_to_run = [
-    "processed_tweets.sql", 
-    "processed_archive.sql", 
-    "processed_league_table.sql", 
-    "processed_image_predictions.sql"
-]
-build_warehouse("My_Data_Warehouse.db", scripts_to_run)
-
-'''
