@@ -3,12 +3,14 @@ name: Run ETL Pipeline
 on:
   push:
     paths:
-      - 'data/raw/**'  # Trigger only when files in the raw folder change
-  workflow_dispatch:   # Allows you to run it manually from GitHub for testing
+      - 'data/raw/**'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allows the action to push changes back
 
     steps:
     - name: Checkout code
@@ -17,19 +19,19 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.12.7'
 
     - name: Install dependencies
       run: |
         pip install pandas openpyxl sqlalchemy
 
     - name: Run ETL Script
-      run: python code.py
+      run: python etl.py
 
     - name: Commit and Push processed data
       run: |
-        git config --global user.name "GitHub Action"
-        git config --global user.email "action@github.com"
-        git add data/processed/*.sql
-        git commit -m "Auto-update processed data via ETL Pipeline" || echo "No changes to commit"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "Auto-update processed data: $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
         git push
