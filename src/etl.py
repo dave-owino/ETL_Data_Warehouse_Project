@@ -73,7 +73,6 @@ def load_single_file(file_name):
     full_path = os.path.join(base_path, file_name)
     
     # Extract the extension (e.g., '.csv', '.tsv')
-    # os.path.splitext returns a tuple: ('filename', '.extension')
     _, extension = os.path.splitext(file_name)
     format_lower = extension.lower()
    
@@ -101,7 +100,9 @@ def load_single_file(file_name):
         print(f"Error loading {file_name}: {e}")
         return None
 
+
 # 1. Load texts
+
 df_tweets = load_single_file('tweet_json.txt')
 print(df_tweets)
 
@@ -149,7 +150,9 @@ if df_tweets is not None:
 
     print(f"Professional PostgreSQL script saved to: {output_file}")
 
+
 # 2. Load the csv
+
 df_csv = load_single_file('twitter_archive_enhanced.csv')
 print(df_csv)
 
@@ -196,7 +199,9 @@ if df_csv is not None:
 
     print(f"Archive SQL script saved to: {output_file}")
 
+
 # 3. Load xlsx
+
 df_xlsx = load_single_file('league_table.xlsx')
 print(df_xlsx)
 
@@ -252,7 +257,9 @@ if df_xlsx is not None:
 
     print(f"League SQL script saved to: {output_file}")
 
+
 # 4. Load TSV
+
 df_tsv = load_single_file('image_predictions.tsv')
 print(df_tsv)
 
@@ -308,6 +315,7 @@ if df_tsv is not None:
             f.write(sql)
 
     print(f"Image Predictions SQL script saved to: {output_file}")
+
 
 
 # Using SQLite to run scripts
